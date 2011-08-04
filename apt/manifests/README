@@ -1,0 +1,16 @@
+Puppet module: apt
+
+# Written by rkhatibi
+
+License: Apache2
+
+DESCRIPTION:
+This module installs and manages apt.
+You should run this in a stage before Main to take full advantage of it.
+
+You can include subclasses in the same way to enforce ordering
+
+class varnish {
+  class { 'apt::varnish': stage => 'pre' }
+  include varnish::params, varnish::install, varnish::config, varnish::service
+}
