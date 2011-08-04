@@ -1,0 +1,14 @@
+Puppet module: yum
+
+# Written by rkhatibi
+
+License: Apache2
+
+DESCRIPTION:
+This module installs and manages yum.
+It does not need to be run in an earlier stage
+
+class varnish::install {
+  include yum::varnish
+  package { 'varnish': ensure => present, }
+}
