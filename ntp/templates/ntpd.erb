@@ -1,0 +1,18 @@
+<% if operatingsystem == "CentOS" || operatingsystem == "RedHat" && lsbmajdistrelease == "5" then -%>
+# Drop root to id 'ntp:ntp' by default.
+OPTIONS="-u ntp:ntp -p /var/run/ntpd.pid"
+
+# Set to 'yes' to sync hw clock after successful ntpdate
+SYNC_HWCLOCK=no
+
+# Additional options for ntpdate
+NTPDATE_OPTIONS="-g"
+<% elsif operatingsystem == "CentOS" || operatingsystem == "RedHat" && lsbmajdistrelease == "6" then -%>
+# Command line options for ntpd
+OPTIONS="-g"
+<% elsif operatingsystem == "Fedora" then -%>
+# Command line options for ntpd
+OPTIONS="-g"
+<% elsif operatingsystem == "Ubuntu" then -%>
+NTPD_OPTS='-g'
+<% end -%>

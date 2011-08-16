@@ -1,0 +1,34 @@
+# PUPPETHEADER: This file is owned by Puppet.
+
+driftfile /var/lib/ntp/ntp.drift
+
+server 0.<%= operatingsystem %>.pool.ntp.org
+server 1.<%= operatingsystem %>.pool.ntp.org
+server 2.<%= operatingsystem %>.pool.ntp.org
+server 3.<%= operatingsystem %>.pool.ntp.org
+
+restrict -4 default kod notrap nomodify nopeer noquery
+restrict -6 default kod notrap nomodify nopeer noquery
+
+<% if virtual == "xenu" then -%>
+server  127.127.1.0     # local clock
+fudge   127.127.1.0 stratum 10
+<% end -%>
+
+restrict 127.0.0.1
+restrict -6 ::1
+
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
+
+<% if operatingsystem == "CentOS" || operatingsystem == "RedHat" && lsbmajdistrelease == "5" then -%>
+keys /etc/ntp/keys
+<% elsif operatingsystem == "CentOS" || operatingsystem == "RedHat" && lsbmajdistrelease == "6" then -%>
+includefile /etc/ntp/crypto/pw
+keys /etc/ntp/keys
+<% elsif operatingsystem == "Fedora" then -%>
+includefile /etc/ntp/crypto/pw
+keys /etc/ntp/keys
+<% end -%>
