@@ -1,13 +1,10 @@
 class apt::config {
 
-  include apt::params
-
   File { owner => root, group => root, mode  => 0644, }
 
   file { 'sources.list':
       ensure  => present,
       path    => '/etc/apt/sources.list',
-      require => Class['apt::install'],
       source  => "puppet:///modules/apt/sources.list.${lsbdistrelease}",
   }
 
@@ -16,8 +13,6 @@ class apt::config {
       force   => true,
       purge   => true,
       recurse => true,
-      require => Class['apt::install'],
-      notify  => Class['apt::update'],
   }
 
   file { '/etc/apt/sources.list.d':
@@ -26,8 +21,6 @@ class apt::config {
       force   => true,
       purge   => true,
       recurse => true,
-      require => Class['apt::install'],
-      notify  => Class['apt::update'],
   }
 
 }

@@ -1,7 +1,5 @@
 class cron::service {
 
-  include cron::params
-
   service { "cron":
       name       => "${cron::params::servicename}",
       ensure     => running,
@@ -9,7 +7,6 @@ class cron::service {
       hasrestart => true,
       hasstatus  => "${cron::params::hasstatus}",
       pattern    => "${cron::params::processname}",
-      require    => Class["cron::install"],
   }
 
 }

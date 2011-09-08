@@ -1,7 +1,5 @@
 class apt::varnish {
 
-  include apt::params
-
   File { owner => root, group => root, mode  => 0644, }
 
   file { 'varnish.keys':
