@@ -1,7 +1,5 @@
 class yum::atrpms {
 
-  include yum::params
-
   case $operatingsystem {
     "Fedora": {
         yumrepo { 'atrpms':

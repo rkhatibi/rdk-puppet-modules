@@ -1,7 +1,5 @@
 class yum::install {
 
-  include yum::params
-
   package { 'yum': ensure => present, }
   package { 'yum-utils': ensure => present, }
 
