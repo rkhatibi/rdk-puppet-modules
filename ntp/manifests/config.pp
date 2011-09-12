@@ -6,14 +6,12 @@ class ntp::config {
       ensure => present,
       path    => "${ntp::params::configfile}",
       content => template("ntp/ntp.conf.erb"),
-      notify  => Class['ntp::service'],
   }
 
   file { 'ntp.sysconfig':
       ensure => present,
       path    => "${ntp::params::sysconfigfile}",
       content => template("ntp/ntpd.erb"),
-      notify  => Class['ntp::service'],
   }
 
 }
