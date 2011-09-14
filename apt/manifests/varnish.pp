@@ -6,7 +6,7 @@ class apt::varnish {
       ensure  => present,
       path    => '/etc/apt/rkeys/varnish.keys',
       require => Class['apt::config'],
-      source  => "puppet:///modules/apt/varnish.keys",
+      source  => 'puppet:///modules/apt/varnish.keys',
   }
 
   file { 'varnish.list':
@@ -14,7 +14,7 @@ class apt::varnish {
       path    => '/etc/apt/sources.list.d/varnish.list',
       notify  => Class['apt::update'],
       require => Exec['varnish_key_add'],
-      content => template("apt/varnish.list.erb"),
+      content => template('apt/varnish.list.erb'),
   }
 
   exec { 'varnish_key_add':

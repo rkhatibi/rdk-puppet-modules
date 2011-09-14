@@ -1,8 +1,8 @@
 class cron::service {
 
-  service { "cron":
-      name       => "${cron::params::servicename}",
+  service { 'cron':
       ensure     => running,
+      name       => "${cron::params::servicename}",
       enable     => true,
       hasrestart => true,
       hasstatus  => "${cron::params::hasstatus}",

@@ -5,7 +5,7 @@ class apt::config {
   file { 'sources.list':
       ensure  => present,
       path    => '/etc/apt/sources.list',
-      source  => "puppet:///modules/apt/sources.list.${lsbdistrelease}",
+      source  => "puppet:///modules/apt/sources.list.${::lsbdistrelease}",
   }
 
   file { '/etc/apt/rkeys':
@@ -17,7 +17,7 @@ class apt::config {
 
   file { '/etc/apt/sources.list.d':
       ensure  => directory,
-      mode    => 0755,
+      mode    => '0755',
       force   => true,
       purge   => true,
       recurse => true,

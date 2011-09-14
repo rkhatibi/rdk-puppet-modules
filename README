@@ -1,0 +1,12 @@
+RDK PUPPET MODULES
+Released under the terms of Apache2 licence
+
+Official website:
+https://github.com/rkhatibi/rdk-puppet-modules
+
+A collection of modules for Puppet with the following targets:
+- Multi OS support and easy integration of new OS
+- Ubuntu 10.04, Fedora 14, RHEL 5-6, and CentOS 5-6 supported out of the box
+- Adherence to Puppet modules standards
+- Simple, easy to understand, stand alone modules for the beginning to intermediate Puppet user
+- puppet-lint 0.1.4 approved

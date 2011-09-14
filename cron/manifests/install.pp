@@ -1,6 +1,6 @@
 class cron::install {
 
-  package { "cron":
+  package { 'cron':
       name   => "${cron::params::packagename}",
       ensure => present,
   }
