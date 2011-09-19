@@ -1,0 +1,9 @@
+# PUPPETHEADER: This file is owned by Puppet.
+# replication settings
+
+[mysqld]
+binlog_format = mixed
+expire_logs_days = 10
+log_bin
+max_binlog_size = 100M
+server_id = <%= ipaddress.split('.').inject(0) {|total,value| (total << 8 ) + value.to_i} %>

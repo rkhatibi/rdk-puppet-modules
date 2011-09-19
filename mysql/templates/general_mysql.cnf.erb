@@ -1,0 +1,8 @@
+# PUPPETHEADER: This file is owned by Puppet.
+# general Mysql settings
+
+[mysqld]
+max_allowed_packet = 32M 
+max_connect_errors = 99999999 
+max_connections = <%= scope.lookupvar('mysql::max_connections') %>
+query_cache_type = 2

@@ -1,0 +1,29 @@
+Puppet module: mysql
+
+# Written by RDK #
+# https://github.com/rkhatibi/rdk-puppet-modules
+
+Licence: Apache2
+
+DESCRIPTION:
+This module installs and manages mysql.
+
+All the variables used in this module are defined in the ntp::params class
+(File: $MODULEPATH/ntp/manifests/params.pp). Here you can:
+- Set default settings and filtering module's specific Users variables
+- Add selectors for internal variables to adapt the module to different OSes
+
+MODULE'S SPECIFIC USER VARIABLES:
+
+USAGE:
+# Standard Classes
+include mysql # Install and run mysql server
+
+DEPENDENCIES:
+Standard classes generally don't need external modules. Puppet 2.6 or better.
+
+OPERATING SYSTEMS SUPPORT (Planned, Development, Testing, Production):
+RedHat/Centos 5 : Production
+RedHat/Centos 6 : Production
+Debian 5 : Testing
+Ubuntu 10.04 : Production
