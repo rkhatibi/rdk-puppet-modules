@@ -1,0 +1,11 @@
+# PUPPETHEADER: This file is owned by Puppet.
+
+if $programname == 'rails' then -/var/log/rails/site.log
+if $programname == 'rails' and not ($msg contains 'SQL' or $msg contains 'SELEcT' or $msg contains 'INSERT INTO' or $msg contains 'UPDATE') then @@mylogger.mydomain.com:10514
+& ~
+if $programname == 'rails' then ~
+
+if $programname == 'rails-stage' then -/var/log/rails/stage-site.log
+if $programname == 'rails-stage' and not ($msg contains 'SQL' or $msg contains 'SELEcT' or $msg contains 'INSERT INTO' or $msg contains 'UPDATE') then @@mylogger.mydomain.com:10514
+& ~
+if $programname == 'rails-stage' then ~

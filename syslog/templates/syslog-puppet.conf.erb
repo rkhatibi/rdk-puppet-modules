@@ -1,0 +1,7 @@
+# PUPPETHEADER: This file is owned by Puppet.
+
+if $programname == 'puppetd' then -/var/log/puppet/puppet.log
+& ~
+
+if $programname == 'puppetmasterd' then -/var/log/puppet/puppetmaster.log
+& ~
