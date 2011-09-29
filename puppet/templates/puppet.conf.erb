@@ -1,0 +1,15 @@
+[main]
+logdir=/var/log/puppet
+vardir=/var/lib/puppet
+ssldir=/var/lib/puppet/ssl
+rundir=/var/run/puppet
+factpath=$vardir/lib/facter
+pluginsync=true
+templatedir=$confdir/templates
+
+[puppetd]
+server = puppet.snappytv.com
+report = true
+<% if snappy_host =~ /(.*)stage|demo(.*)/ || snappy_host =~ /(.*)office/ then -%>
+environment = stage
+<% end -%>
