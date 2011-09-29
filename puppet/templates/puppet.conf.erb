@@ -10,6 +10,6 @@ templatedir=$confdir/templates
 [puppetd]
 server = puppet.snappytv.com
 report = true
-<% if snappy_host =~ /(.*)stage|demo(.*)/ || snappy_host =~ /(.*)office/ then -%>
+<% if fqdn =~ /(.*)stage|demo(.*)/ || fqdn =~ /(.*)internal/ then -%>
 environment = stage
 <% end -%>
