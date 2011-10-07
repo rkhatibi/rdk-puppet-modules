@@ -1,8 +1,5 @@
 class puppet::params  {
 
-# MODULES INTERNAL VARIABLES
-# (Modify only to adapt to unsupported OSes)
-
   $packagename= $::operatingsystem ? {
     default => 'puppet',
   }
@@ -40,13 +37,13 @@ class puppet::params  {
   }
 
   $facterec2 = $::operatingsystem ? {
-    Ubuntu  => '/usr/lib/ruby/1.8/facter/ec2.rb',
-    default => '/usr/lib/ruby/site_ruby/1.8/facter/ec2.rb',
+    /(?i:CentOS|Fedora)/ => '/usr/lib/ruby/site_ruby/1.8/facter/ec2.rb',
+    /(?i:Ubuntu|Debian)/ => '/usr/lib/ruby/1.8/facter/ec2.rb',
   }
 
   $sysconfig = $::operatingsystem ? {
-    ubuntu  => '/etc/default/puppet',
-    default => '/etc/sysconfig/puppet',
+    /(?i:CentOS|Fedora)/ => '/etc/sysconfig/puppet',
+    /(?i:Ubuntu|Debian)/ => '/etc/default/puppet',
   }
-    
+
 }

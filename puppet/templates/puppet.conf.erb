@@ -7,8 +7,12 @@ factpath=$vardir/lib/facter
 pluginsync=true
 templatedir=$confdir/templates
 
+<% if puppetversion =~ /0.25(.*)/ then -%>
 [puppetd]
-server = puppet.snappytv.com
+<% else -%>
+[agent]
+<% end -%>
+server = puppet.mydomain.com
 report = true
 <% if fqdn =~ /(.*)stage|demo(.*)/ || fqdn =~ /(.*)internal/ then -%>
 environment = stage

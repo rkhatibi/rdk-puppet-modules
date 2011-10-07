@@ -4,13 +4,13 @@ class puppet::config {
 
   file { 'sysconfig/puppet':
     ensure  => present,
-    path    => "${puppet::params::sysconfig}",
+    path    => $puppet::params::sysconfig,
     content => template('puppet/puppet.erb'),
   }
 
   file { 'puppet.conf':
     ensure  => present,
-    path    => "${puppet::params::configfile}",
+    path    => $puppet::params::configfile,
     content => template('puppet/puppet.conf.erb'),
   }
 

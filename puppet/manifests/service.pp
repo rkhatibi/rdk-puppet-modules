@@ -4,8 +4,8 @@ class puppet::service {
     ensure     => running,
     enable     => true,
     hasrestart => true,
-    hasstatus  => "${puppet::params::hasstatus}",
-    name       => "${puppet::params::servicename}",
+    hasstatus  => $puppet::params::hasstatus,
+    name       => $puppet::params::servicename,
   }
 
 }

@@ -1,8 +1,6 @@
 # PUPPETHEADER: This file is owned by Puppet.
-<% if operatingsystem == "Fedora" then -%>
 
-PUPPET_SERVER=puppet.snappytv.com
-<% elsif operatingsystem == "Ubuntu" || operatingsystem == "Debian" then -%>
+<% if operatingsystem == "Ubuntu" || operatingsystem == "Debian" then -%>
 
 # Start puppet on boot?
 START=yes
