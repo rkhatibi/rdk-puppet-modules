@@ -14,4 +14,16 @@ class puppet::config {
     content => template('puppet/puppet.conf.erb'),
   }
 
+  case $::facterversion {
+    /1.5(.*)/: {
+      file { 'facter_ec2':
+        ensure  => present,
+        path    => $puppet::params::facterec2,
+        require => Package['puppet'],
+        source  => 'puppet:///modules/puppet/facter_ec2',
+      }
+    }
+    default: {}
+  }
+
 }
