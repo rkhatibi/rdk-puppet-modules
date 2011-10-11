@@ -6,6 +6,7 @@ class puppet {
   #include logrotate::puppet
   #include syslog::puppet
 
+  # don't restart Puppet on config change unlike other classes
   Class['puppet::install'] -> Class['puppet::config'] -> Class['puppet::service']
 
 }

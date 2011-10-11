@@ -19,7 +19,6 @@ class puppet::config {
       file { 'facter_ec2':
         ensure  => present,
         path    => $puppet::params::facterec2,
-        require => Package['puppet'],
         source  => 'puppet:///modules/puppet/facter_ec2',
       }
     }
