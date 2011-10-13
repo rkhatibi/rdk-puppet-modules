@@ -6,7 +6,7 @@ Puppet module: apt
 Licence: Apache2
 
 DESCRIPTION:
-This module installs and manages atp.
+This module installs and manages apt.
 
 All the variables used in this module are defined in the apt::params class
 (File: $MODULEPATH/apt/manifests/params.pp). Here you can:
@@ -16,11 +16,13 @@ All the variables used in this module are defined in the apt::params class
 MODULE'S SPECIFIC USER VARIABLES:
 
 USAGE:
-# Standard Classes
-include apt # Install and maintain apt
+# Standard class
+include apt
+# as part of a stage which is how I prefer to use this module
+class { 'apt': stage => 'pre', }
 
 DEPENDENCIES:
-Standard classes generally don't need external modules. Puppet 2.6 or better.
+Standard classes shouldn't need external modules. Puppet 2.6 or better.
 
 OPERATING SYSTEMS SUPPORT (Planned, Development, Testing, Production):
 Ubuntu 10.04 : Production
