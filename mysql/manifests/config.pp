@@ -1,10 +1,14 @@
 class mysql::config {
 
-  File { owner => root, group => root, mode => '0644', }
+  File {
+    owner => root,
+    group => root,
+    mode  => '0644',
+  }
 
-  file { 'mysql.conf':
+  file { 'my.cnf':
     ensure  => present,
-    path    => "${mysql::params::configfile}",
+    path    => $mysql::params::configfile,
     source  => 'puppet:///modules/mysql/my.cnf',
   }
 

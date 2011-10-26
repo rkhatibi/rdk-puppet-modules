@@ -6,6 +6,7 @@ class mysql {
   include mysql::params, mysql::install, mysql::config, mysql::service
   Class['mysql::install'] -> Class['mysql::config'] ~> Class['mysql::service']
 
-  include collectd::mysql
+# Additional classes for data collection and monitoring
+# include collectd::mysql
 
 }

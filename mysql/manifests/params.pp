@@ -3,38 +3,35 @@ class mysql::params  {
 ## MODULE INTERNAL VARIABLES
 # (Modify to adapt to unsupported OSes)
 
-    $packagename = $operatingsystem ? {
-        default => "mysql-server",
-    }
+  $packagename = $operatingsystem ? {
+    default => 'mysql-server',
+  }
 
-    $servicename = $operatingsystem ? {
-        redhat  => "mysqld",
-        centos  => "mysqld",
-        default => "mysql",
-    }
+  $servicename = $operatingsystem ? {
+    /(?i:CentOS|Fedora)/ => 'mysqld',
+    /(?i:Ubuntu|Debian)/ => 'mysql',
+  }
 
-    $processname = $operatingsystem ? {
-        default => "mysqld",
-    }
+  $processname = $operatingsystem ? {
+    default => 'mysqld',
+  }
 
-    $hasstatus = $operatingsystem ? {
-        default => true,
-    }
+  $hasstatus = $operatingsystem ? {
+    default => true,
+  }
 
-    $configfile = $operatingsystem ? {
-        debian  => "/etc/mysql/my.cnf",
-        ubuntu  => "/etc/mysql/my.cnf",
-        default => "/etc/my.cnf",
-    }
+  $configfile = $operatingsystem ? {
+    /(?i:Ubuntu|Debian)/ => '/etc/mysql/my.cnf',
+    /(?i:CentOS|Fedora)/ => '/etc/my.cnf',
+  }
 
-    $configdir = $operatingsystem ? {
-        default => "/etc/mysql/conf.d",
-    }
+  $configdir = $operatingsystem ? {
+    default => '/etc/mysql/conf.d',
+  }
 
-    $initconfigfile = $operatingsystem ? {
-        debian  => "/etc/default/mysql",
-        ubuntu  => "/etc/default/mysql",
-        default => "/etc/sysconfig/mysqld",
-    }
-    
+  $initconfigfile = $operatingsystem ? {
+    /(?i:Ubuntu|Debian)/ => '/etc/default/mysql',
+    /(?i:CentOS|Fedora)/ => '/etc/sysconfig/mysqld',
+  }
+
 }
