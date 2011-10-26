@@ -13,7 +13,7 @@ define apache::vhost {
     group   => $apache::params::configfile_group,
     notify  => Class['apache::service'],
     require => Class['apache::config'],
-    content => template("apache/vhosts/$name.erb"),
+    content => template("apache/vhosts/${name}.erb"),
   }
 
 }
