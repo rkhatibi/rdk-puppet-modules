@@ -1,0 +1,24 @@
+# PUPPETHEADER: This file is owned by Puppet.
+
+<VirtualHost *:80>
+
+  ServerName dashboard.mydomain.com
+
+  CustomLog <%= scope.lookupvar('apache::params::logdir') %>/dashboard.mydomain.com-access.log combined
+  ErrorLog <%= scope.lookupvar('apache::params::logdir') %>/dashboard.mydomain.com-error.log
+
+# logging settings
+  LogLevel crit
+
+# Rack settings
+  RailsEnv production
+
+# Document root, locations, and directories
+  DocumentRoot /var/www/puppet-dashboard/public
+
+  <Directory /var/www/puppet-dashboard/public>
+    AllowOverride all
+    Options -MultiViews
+  </Directory>
+
+</VirtualHost>
