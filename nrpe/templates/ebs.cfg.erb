@@ -1,0 +1,4 @@
+# PUPPETHEADER: This file is owned by Puppet.
+
+# mdadm defined array
+command[check_home_disk]=<%= scope.lookupvar('nrpe::params::pluginsdir') %>/check_disk -w 40% -c 30% -W 60% -K 50% <%= name %> 

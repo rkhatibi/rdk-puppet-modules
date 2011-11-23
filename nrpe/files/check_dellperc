@@ -1,0 +1,160 @@
+#!/usr/bin/perl -wT
+#
+# CHECK DELL/MegaRAID DISK ARRAYS ON LINUX
+# $Id: check_dellperc 142 2008-03-17 22:25:46Z thiago $
+#
+
+BEGIN {
+ $ENV{'PATH'} = '/usr/bin';
+ $ENV{'ENV'} = '';
+ $ENV{'BASH_ENV'} = '';
+ $ENV{'IFS'} = ' ' if ( defined($ENV{'IFS'}) ) ;
+}
+
+use strict;
+use lib "/usr/lib64/nagios/plugins";
+use utils qw($TIMEOUT %ERRORS &print_revision &support &usage);
+
+use Getopt::Long;
+
+use Time::HiRes qw ( tv_interval gettimeofday );
+
+use vars qw($opt_h $help $opt_V $version);
+use vars qw($PROGNAME $SUDO $MEGACLI);
+
+$PROGNAME = "check_dellperc";
+$SUDO = "/usr/bin/sudo";
+$MEGACLI = "/opt/MegaRAID/MegaCli/MegaCli64";
+
+my $t_start = [gettimeofday];
+
+Getopt::Long::Configure('bundling');
+GetOptions
+ ("V"   => \$opt_V,  "version"    => \$opt_V,
+  "h"   => \$opt_h,  "help"       => \$opt_h,
+ );
+
+
+if ( $opt_V ) {    print_revision($PROGNAME, '$Id: check_dellperc 142 2008-03-17 22:25:46Z thiago $');
+ exit $ERRORS{'OK'};
+
+} elsif ( $opt_h ) {
+ print_help();
+ exit $ERRORS{'OK'};
+}
+
+my $TIMEOUT = $utils::TIMEOUT;
+my $start_time = time();
+# TODO: add timeout option#if ( $opt_t && $opt_t =~ /^([0-9]+)$/ ) {
+#    $TIMEOUT = $1;
+#}
+
+
+# Check state of Logical Devices
+my $status = "PERC OK";
+my $perfdata = "";
+my $errors = $ERRORS{'OK'};
+my $vd = "";
+my $vds = "";
+
+open(MROUT, "$SUDO $MEGACLI -LDInfo -Lall -aALL -NoLog|");
+if (!<MROUT>) {
+ print("Can't run $MEGACLI\n");
+ exit $ERRORS{'UNKNOWN'};
+}
+
+while (<MROUT>) {
+ my $line = $_;
+ chomp($line);
+
+ if ($line =~ /^Virtual Disk: (\d+)/) {
+     $vd = $1;
+     next;
+ }
+
+ if ($vd =~ /^[0-9]+$/) {
+     if ($line =~ /^State: (\w+)/) {
+         $vds = $1;            #TODO: verbose print("State for VD #$vd is $vds\n");
+         $perfdata = $perfdata." VD$vd=$vds";
+         if ($vds !~ /^Optimal$/) {
+             $errors = $ERRORS{'CRITICAL'};
+             $status = "RAID ERROR";
+             #TODO: verbose print("Error found: $status. Skipping remaining Virtual Drive tests.\n");
+             last;
+         } else {
+             $vd = ""; $vds = "";
+         }
+     }
+ }
+}
+close(MROUT);
+
+# Check state of Physical Drives
+my $count_type;my $pd = "";
+my $pds = "";
+
+open(MROUT, "$SUDO $MEGACLI -PDList -aALL -NoLog|");
+if (!<MROUT>) {
+ print("Can't run $MEGACLI\n");
+ exit $ERRORS{'UNKNOWN'};
+}
+
+while (<MROUT>) {
+ my $line = $_;
+ chomp($line);
+
+ if ($line =~ /^Device Id: (\d+)/) {
+     $pd = $1;
+     next;
+ }
+
+ if ($pd =~ /^[0-9]+$/) {
+     if ($line =~ /^(Media Error|Other Error|Predictive Failure) Count: (\w+)/) {
+         $count_type = $1;
+         $pds = $2;            #TODO: verbose print("$count_type count for device id #$pd is $pds\n");
+         $perfdata = $perfdata." PD$pd=$count_type;$pds";
+         if ($pds != 0) {
+             if ($errors == $ERRORS{'OK'}) {
+                 $status = "DISK ERROR";
+                 $errors = $ERRORS{'WARNING'};
+             }
+         }
+     }
+ }
+}
+close(MROUT);
+
+# Got here OK
+#
+my $t_end = [gettimeofday];
+print "$status| time=" . (tv_interval $t_start, $t_end) . "$perfdata\n";
+exit $errors;
+
+
+sub print_usage
+{
+ print "Usage: $PROGNAME\n";
+}
+
+
+sub print_help
+{
+ print_revision($PROGNAME, '$Revision: 142 $ ');
+ print "Copyright (C) 2007 Westfield Ltd\n\n";
+ print "Check Dell/MegaRaid Disk Array plugin for Nagios\n\n";
+
+ print_usage();
+ print <<USAGE
+-V, --version
+    Print program version information
+-h, --help
+    This help screen
+
+
+Example:
+    $PROGNAME
+
+USAGE
+;
+
+}
