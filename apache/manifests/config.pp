@@ -9,6 +9,7 @@ class apache::config {
   file { 'apache-vhost-dir':
     ensure  => directory,
     path    => $apache::params::vhostdir,
+    mode    => '0755',
     force   => true,
     purge   => true,
     recurse => true,
