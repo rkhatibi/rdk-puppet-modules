@@ -1,0 +1,39 @@
+# PUPPETHEADER: This file is owned by Puppet
+
+volume gluster01
+  type protocol/client
+  option transport-type tcp
+  option remote-host gluster01
+  option remote-subvolume brick
+end-volume
+
+volume gluster02
+  type protocol/client
+  option transport-type tcp
+  option remote-host gluster02
+  option remote-subvolume brick
+end-volume
+
+volume replicate
+  type cluster/replicate
+  subvolumes gluster01 gluster02
+end-volume
+
+volume readahead
+  type performance/read-ahead
+  option page-count 16
+  option force-atime-update off
+  subvolumes replicate
+end-volume
+
+volume writebehind
+  type performance/write-behind
+  option cache-size 3MB 
+  subvolumes replicate
+end-volume
+
+volume cache
+  type performance/io-cache
+  option cache-size 64MB 
+  subvolumes writebehind
+end-volume

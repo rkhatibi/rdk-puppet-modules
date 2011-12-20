@@ -1,0 +1,24 @@
+# PUPPETHEADER: This file is owned by Puppet
+
+volume posix
+  type storage/posix
+  option directory /mnt
+end-volume
+
+volume locks
+  type features/locks
+  subvolumes posix
+end-volume
+
+volume brick
+  type performance/io-threads
+  option thread-count 8
+  subvolumes locks
+end-volume
+
+volume server
+  type protocol/server
+  option transport-type tcp
+  option auth.addr.brick.allow 10.*
+  subvolumes brick
+end-volume
