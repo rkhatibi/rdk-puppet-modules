@@ -1,0 +1,19 @@
+# PUPPETHEADER: This file is owned by Puppet
+
+<% if virtual == "xenu" then -%>
+deb http://us-west-1.ec2.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %> main restricted universe multiverse
+deb-src http://us-west-1.ec2.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %> main restricted universe multiverse
+deb http://us-west-1.ec2.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %>-updates main restricted universe multiverse
+deb-src http://us-west-1.ec2.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %>-updates main restricted universe multiverse
+deb http://us-west-1.ec2.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %>-backports main restricted universe multiverse
+deb-src http://us-west-1.ec2.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %>-backports main restricted universe multiverse
+<% else -%>
+deb http://us.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %> main restricted universe multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %> main restricted universe multiverse
+deb http://us.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %>-updates main restricted universe multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %>-updates main restricted universe multiverse
+deb http://us.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %>-backports main restricted universe multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ <%= lsbdistcodename %>-backports main restricted universe multiverse
+<% end -%>
+deb http://security.ubuntu.com/ubuntu <%= lsbdistcodename %>-security main restricted universe
+deb-src http://security.ubuntu.com/ubuntu <%= lsbdistcodename %>-security main restricted universe
