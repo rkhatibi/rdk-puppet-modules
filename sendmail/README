@@ -1,0 +1,24 @@
+Puppet module: sendmail
+
+# Written by RDK #
+# https://github.com/rkhatibi/rdk-puppet-modules
+
+Licence: Apache2
+
+DESCRIPTION:
+This module sorts mananges sendmail, but mostly it removes it.
+
+MODULE'S SPECIFIC USER VARIABLES:
+
+USAGE:
+# Standard Classes
+include sendmail # Install and run sendmail
+include sendmail::absent # removes sendmail in prep for adding Postfix
+
+DEPENDENCIES:
+Standard classes generally don't need external modules. Puppet 2.6 or better.
+
+OPERATING SYSTEMS SUPPORT (Planned, Development, Testing, Production):
+RedHat/Centos 5 : Production
+RedHat/Centos 6 : Production
+Fedora 14: Production
