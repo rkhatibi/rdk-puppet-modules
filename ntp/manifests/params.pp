@@ -3,36 +3,47 @@ class ntp::params {
 ## MODULE INTERNAL VARIABLES
 # (Modify to adapt to unsupported OSes)
 
-  $packagename = $operatingsystem ? {
+  $packagename = $::operatingsystem ? {
     default => 'ntp',
   }
 
-  $servicename = $operatingsystem ? {
-    centos  => 'ntpd',
-    fedora  => 'ntpd',
-    default => 'ntp',
+  $servicename = $::operatingsystem ? {
+    /(?i:Ubuntu|Debian)/ => 'ntp',
+    /(?i:CentOS|Fedora)/ => 'ntpd',
   }
 
-  $processname = $operatingsystem ? {
+  $processname = $::operatingsystem ? {
     default => 'ntpd',
   }
 
-  $hasstatus = $operatingsystem ? {
-    default => true,
+  $hasstatus = $::operatingsystem ? {
+    /(?i:CentOS|Fedora)/ => 'true',
+    /(?i:Ubuntu|Debian)/ => 'false',
   }
 
-  $configdir = $operatingsystem ? {
+  $config_owner = $::operatingsystem ? {
+    default => 'root',
+  }
+
+  $config_group = $::operatingsystem ? {
+    default => 'root',
+  }
+
+  $config_mode = $::operatingsystem ? {
+    default => '0644',
+  }
+
+  $config_dir = $::operatingsystem ? {
     default => '/etc/ntp',
   }
 
-  $configfile = $operatingsystem ? {
+  $config_file = $::operatingsystem ? {
     default => '/etc/ntp.conf',
   }
 
-  $sysconfigfile = $operatingsystem ? {
-    centos  => '/etc/sysconfig/ntpd',
-    fedora  => '/etc/sysconfig/ntpd',
-    default => '/etc/default/ntp',
+  $config_init = $::operatingsystem ? {
+    /(?i:CentOS|Fedora)/ => '/etc/sysconfig/ntpd',
+    /(?i:Ubuntu|Debian)/ => '/etc/default/ntp',
   }
 
 }

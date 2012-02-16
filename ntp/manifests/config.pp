@@ -1,17 +1,21 @@
 class ntp::config {
 
-  File { owner => root, group => root, mode  => 0644, }
-
-  file { 'ntp.conf':
-      ensure  => present,
-      path    => "${ntp::params::configfile}",
-      content => template('ntp/ntp.conf.erb'),
+  File {
+    owner => $ntp::params::config_owner,
+    group => $ntp::params::config_group,
+    mode  => $ntp::params::config_mode,
   }
 
-  file { 'ntp.sysconfig':
-      ensure  => present,
-      path    => "${ntp::params::sysconfigfile}",
-      content => template('ntp/ntpd.erb'),
+  file { 'ntp.conf':
+    ensure  => present,
+    path    => $ntp::params::config_file,
+    content => template('ntp/ntp.conf.erb'),
+  }
+
+  file { 'ntp.config_init':
+    ensure  => present,
+    path    => $ntp::params::config_init,
+    content => template('ntp/ntpd.erb'),
   }
 
 }

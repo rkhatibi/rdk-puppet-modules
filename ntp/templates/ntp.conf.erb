@@ -16,6 +16,9 @@ fudge   127.127.1.0 stratum 10
 <% end -%>
 
 restrict 127.0.0.1
+<% scope.lookupvar('ntp::data::monitoring_hosts').each do |mon_host| -%>
+restrict <%= mon_host %>
+<% end -%>
 restrict -6 ::1
 
 statistics loopstats peerstats clockstats

@@ -4,9 +4,9 @@ class ntp::service {
       ensure     => running,
       enable     => true,
       hasrestart => true,
-      hasstatus  => "${ntp::params::hasstatus}",
-      name       => "${ntp::params::servicename}",
-      pattern    => "${ntp::params::servicepattern}",
+      hasstatus  => $ntp::params::hasstatus,
+      name       => $ntp::params::servicename,
+      pattern    => $ntp::params::servicepattern,
   }
 
 }
