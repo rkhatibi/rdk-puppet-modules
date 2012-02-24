@@ -1,8 +1,5 @@
 class nrpe::params  {
 
-## external data sources
-  $hosts = extlookup('monitoring_hosts') 
-
 ## MODULE EXTRA VARIABLES
   $pluginsdir = $::operatingsystem ? {
     /(?i:CentOS|Fedora)/ => '/usr/lib64/nagios/plugins',

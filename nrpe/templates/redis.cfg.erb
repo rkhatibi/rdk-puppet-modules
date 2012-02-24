@@ -1,6 +1,0 @@
-# PUPPETHEADER: This file is owned by Puppet.
-
-command[check_redis_conn]=<%= scope.lookupvar('nrpe::params::pluginsdir') %>/check_redis -H localhost -P 6379 --check=connections -c 200 -w 200
-command[check_redis_ram]=<%= scope.lookupvar('nrpe::params::pluginsdir') %>/check_redis -H localhost -P 6379 --check=memory -c 1073741824 -w 1073741824
-command[check_redis_delta]=<%= scope.lookupvar('nrpe::params::pluginsdir') %>/check_redis -H localhost -P 6379 --check=changes -c 10000 -w 5000
-command[check_redis_save]=<%= scope.lookupvar('nrpe::params::pluginsdir') %>/check_redis -H localhost -P 6379 --check=lastsave -c 1200 -w 600

@@ -1,0 +1,3 @@
+# PUPPETHEADER: This file is owned by Puppet.
+
+command[check_procs_<%= name %>]=<%= scope.lookupvar('nrpe::params::pluginsdir') %>/check_procs -C <%= name %> -w <%= n_warning %> -c <%= n_critical %> <%= n_options %>

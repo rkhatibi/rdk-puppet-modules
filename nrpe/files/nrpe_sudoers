@@ -1,2 +1,0 @@
-nrpe ALL=(ALL) NOPASSWD: /opt/MegaRAID/MegaCli/MegaCli64 -PDList -aALL -NoLog
-nrpe ALL=(ALL) NOPASSWD: /opt/MegaRAID/MegaCli/MegaCli64 -LDInfo -Lall -aALL -NoLog

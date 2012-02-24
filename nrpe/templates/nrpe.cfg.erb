@@ -5,7 +5,7 @@ pid_file=<%= scope.lookupvar('nrpe::params::pidfile') %>
 server_port=5666
 nrpe_user=<%= scope.lookupvar('nrpe::params::user') %>
 nrpe_group=<%= scope.lookupvar('nrpe::params::user') %>
-allowed_hosts=localhost<% scope.lookupvar('nrpe::params::hosts').each do |mon_host| -%>,<%= mon_host -%><% end %>
+allowed_hosts=localhost<% scope.lookupvar('nrpe::data::hosts').each do |mon_host| -%>,<%= mon_host -%><% end %>
 dont_blame_nrpe=0
 debug=0
 command_timeout=60
