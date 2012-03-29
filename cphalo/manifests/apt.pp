@@ -19,4 +19,6 @@ class cphalo::apt {
     content => template('cphalo/cloudpassage.list.erb'),
   }
 
+  Class['apt::update'] -> Class['cphalo::install']
+
 }
