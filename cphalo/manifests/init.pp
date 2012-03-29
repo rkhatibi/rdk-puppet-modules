@@ -1,7 +1,10 @@
 class cphalo {
 
-  # apt stuff might go here
-  #class { 'apt::cloudpassage': stage => 'pre' }
+  case $::operatingsystem {
+    /(?i:Ubuntu|Debian)/: { include cphalo::apt }
+    /(?i:CentOS|RedHat|Fedora)/: { include cphalo::yum }
+    default: {}
+  }
 
   include cphalo::params, cphalo::data
   include cphalo::install, cphalo::firstart, cphalo::service

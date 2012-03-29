@@ -1,0 +1,8 @@
+name 'puppet-cphalo'
+version '0.2.0'
+source 'https://github.com/rdk-puppet-modules-cphalo'
+author 'rdk'
+license 'Apache License 2.0'
+summary 'Cloud Passage Module for Puppet'
+description 'Cloud Passage Module for Puppet'
+project_page 'https://github.com/rdk-puppet-modules-cphalo'
