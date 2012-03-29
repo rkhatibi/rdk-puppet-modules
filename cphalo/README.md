@@ -3,6 +3,11 @@
 ## Description
 Provides installation and setup of Cloud Passage
 
+## Requirements
+This module requires a Puppet master of 2.6 or better.
+By default data comes from extlookup which was likely to
+support more users.
+
 ## Usage
 
 ### setup
