@@ -17,6 +17,9 @@ The module will plug those values in as needed
 ### include cphalo
 installs and starts cphalod
 
+### include cphalo::service::disable
+installs, but stops the service
+
 ### apt
 You may need to modify to use *your* apt update process
 I didn't add one because it's likely to cause more problems
