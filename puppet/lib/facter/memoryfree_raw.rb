@@ -1,14 +1,16 @@
-# for some reason facter takes the raw memorysize and reports it as
-# a formatted string, which is useless for calculation
+# memoryfree_raw: same as memoryfree, but *always* in kB
 #
-
 Facter.add("memoryfree_raw") do
-    confine :kernel => :linux
-    setcode do
-        size = 0
-        File.readlines("/proc/meminfo").each do |l|
-            size = $1.to_f if l =~ /^MemFree:\s+(\d+)/
-        end
-    size
+  confine :kernel => :linux
+  setcode do
+    size = 0
+    File.readlines("/proc/meminfo").each do |l|
+      size = $1.to_i if l =~ /^MemFree:\s+(\d+)/
+      # MemoryFree == memfree + cached + buffers
+      # no need for float since units don't change
+      l =~ /^(?:Buffers|Cached):\s+(\d+)/
+      size += $1.to_i
     end
+    size
+  end
 end
