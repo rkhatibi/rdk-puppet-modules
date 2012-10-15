@@ -1,28 +1,28 @@
 class cphalo::params {
 
 # (Modify only to adapt to unsupported OSes)
-  $packagename = $::operatingsystem ? {
+  $packagename = $::osfamily ? {
     default => 'cphalo',
   }
 
-  $servicename = $::operatingsystem ? {
+  $servicename = $::osfamily ? {
     default => 'cphalod',
   }
 
-  $processname = $::operatingsystem ? {
+  $processname = $::osfamily ? {
     default => 'cphalo',
   }
 
-  $hasstatus = $::operatingsystem ? {
-    /(?i:Ubuntu|Debian)/ => false,
-    /(?i:Fedora|CentOS)/ => true,
+  $hasstatus = $::osfamily ? {
+    /(?i:debian)/ => false,
+    /(?i:redhat)/ => true,
   }
 
-  $configfile = $::operatingsystem ? {
+  $configfile = $::osfamily ? {
     default => '/etc/cphalo/cphalo.conf',
   }
 
-  $configdir = $::operatingsystem ? {
+  $configdir = $::osfamily ? {
     default => '/etc/cphalo',
   }
 
