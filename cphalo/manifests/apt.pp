@@ -9,6 +9,7 @@ class cphalo::apt {
   exec { 'cloudpassage.key':
     command   => 'curl http://packages.cloudpassage.com/cloudpassage.packages.key | apt-key add -',
     logoutput => on_failure,
+    notify  => Class['apt::update'],
     unless    => 'grep cloudpassage /etc/apt/trusted.gpg 1>/dev/null',
   }
 
@@ -22,6 +23,15 @@ class cphalo::apt {
   # this assumes you have a central apt class the runs the 
   # apt-get update only once for all updates so you don't 
   # have problems with apt choking during multiple updates
-  Class['apt::update'] -> Class['cphalo::install']
+  #Class['apt::update'] -> Class['cphalo::install']
+
+  # in case you don't have an apt update process
+  exec { 'apt_update':
+    command     => 'apt-get update',
+    logoutput   => on_failure,
+    refreshonly => true,
+  }
+
+  Exec['apt_update'] -> Class['cphalo::install']
 
 }
