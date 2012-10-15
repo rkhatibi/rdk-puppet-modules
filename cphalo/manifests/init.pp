@@ -1,8 +1,10 @@
 class cphalo {
 
-  case $::operatingsystem {
-    /(?i:Ubuntu|Debian)/: { include cphalo::apt }
-    /(?i:CentOS|RedHat|Fedora)/: { include cphalo::yum }
+  # if you have your own apt/yum module you can comment these out
+  # I recommends puppetlabs-apt for apt
+  case $::osfamily {
+    /(?i:debian)/: { include cphalo::apt }
+    /(?i:redhat)/: { include cphalo::yum }
     default: {}
   }
 
